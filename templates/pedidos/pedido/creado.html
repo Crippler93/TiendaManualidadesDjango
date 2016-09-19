@@ -1,0 +1,12 @@
+{% extends 'tienda/base.html' %}
+
+{% block titulo %}
+Gracias
+{% endblock %}
+
+{% block contenido %}
+<div class="container">
+	<h1 class="text-center page-header">Gracias</h1>
+	<div class="alert alert-success" role="alert"><h3>Tu pedido a sido satisfactoriamente completado. Tu numero de pedido es <strong>{{pedido.id}}</strong>.</h3></div>
+</div>
+{% endblock %}

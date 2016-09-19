@@ -1,0 +1,48 @@
+{% extends "tienda/base.html" %}
+{% load staticfiles %}
+
+{% block titulo %}
+	Tu Carro de Compras
+{% endblock %}
+
+{% block contenido %}
+<div class="container-fluid">	
+	<h1>Tu carro de compras</h1>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Imagen</th>
+				<th>Producto</th>
+				<th>Cantidad</th>
+				<th>Remover</th>
+				<th>Precio Unidad</th>
+				<th>Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in carro %}
+				{% with producto=item.producto %}
+				<tr>
+					<td>
+						<a href="{{ producto.get_absolute_url }}">
+							<img src="{% if producto.imagen %}{{ producto.imagen.url }}{% else %}{% static 'img/no-img.jpg' %}{% endif %}" height="150",width = "75">
+						</a>
+					</td>
+					<td>{{producto.nombre}}</td>
+					<td>{{item.cantidad}}</td>
+					<td><a href="{% url 'carro_compras:remover_carro' producto.id %}">Remover</a></td>
+					<td>{{item.precio}}</td>
+					<td>{{item.precio_total}}</td>
+				</tr>
+				{% endwith %}
+			{% endfor %}
+			<tr>
+				<td>Total</td>
+				<td colspan="4"></td>
+				<td>{{carro.obtener_precio_total}}</td>
+			</tr>
+		</tbody>
+	</table>
+		<a href="{% url 'tienda:lista_productos' %}" class="btn btn-success margin-top-sidebar">Continuar comprando</a>
+		<a href="{% url 'pedidos:crear_pedido' %}" class="btn btn-info margin-top-sidebar">Hacer Pedido</a>
+{% endblock %}

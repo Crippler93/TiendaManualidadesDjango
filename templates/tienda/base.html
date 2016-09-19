@@ -1,0 +1,131 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{% block titulo %}Tienda{% endblock %}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'font-awesome/css/font-awesome.min.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Baloo+Tamma|Lobster" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Lora:700" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js">
+			</script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js">
+			</script>
+  <![endif]-->
+
+</head>
+<body>
+	<div id="wrapper">
+	<div id="header">
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand " href="{% url 'tienda:lista_productos' %}">					
+						<img src="{% static 'img/woolmark-logo.png' %}" class="img-responsive"> 
+					</a>
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#nav-menu" aria-expanded="false">
+						<span class="sr-only">Toogle Navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<!-- <a class="btn btn-primary navbar-btn pull-left" href="#" role="button">Sign up</a> -->
+				</div>
+
+				<div id="nav-menu" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li>
+					    <a class="negro baloo" href="{% url 'tienda:lista_productos' %}">
+					    	<span class="glyphicon glyphicon-home"></span>
+					      Productos
+					    </a>
+					  </li>
+					  <li>
+					    <a class="negro baloo" href="{% url 'blog:lista_post' %}">
+					    	<span class="glyphicon glyphicon-pencil"></span>
+					      Blog
+					    </a>
+					  </li>
+					  <li>
+					    <a class="negro baloo" href="#">
+					    	<span class="glyphicon glyphicon-map-marker"></span>
+					      Eventos
+					    </a>
+					  </li>
+					</ul>
+					  {% with total_items=carro|length %}
+							{% if carro|length > 0 %}
+					<ul class="nav navbar-nav pull-right">
+								<li>
+									<a class="negro baloo" href="{% url 'carro_compras:detalle_carro' %}">
+										<span class="glyphicon glyphicon-shopping-cart"></span>
+										Tu carro: {{ total_items }} item{{ total_items|pluralize }},{{ carro.obtener_precio_total }} Bs
+									</a>
+								</li>
+						</ul>
+							{% else %}
+						<ul class="nav navbar-nav pull-right">
+								<li>
+									<a class="baloo negro " href="{% url 'carro_compras:detalle_carro' %}">
+										<span class="glyphicon glyphicon-shopping-cart"></span>
+										Tu carro esta vacio
+									</a>
+								</li>
+						</ul>	
+							{% endif %}
+						{% endwith %}
+				</div>
+			</div>
+		</nav>
+	</div>
+	<div id="content" class="margin-top">
+	{% block contenido %}
+	{% endblock %}
+	</div>
+	
+	<div id="footer">
+		<div class="container margin-top-sidebar">
+			<div class="row">
+				<div class="col-lg-12 col-xs-12 col-md-12">
+				<div class="row">
+					<ul class="list-unstyled list-inline text-center">
+						<div class="col-xs-12 col-md-4 col-lg-4">
+						<li>
+							<a href="" class="negro">
+								<i class="fa fa-facebook-official" aria-hidden="true"><span class="baloo"> Facebook</span></i>
+							</a>
+						</li>
+						</div>
+						<div class="col-xs-12 col-md-4 col-lg-4">
+						<li>
+							<a href="" class="negro">
+								<i class="fa fa-google-plus" aria-hidden="true"><span class="baloo"> Gmail</span></i>
+							</a>
+						</li>
+						</div>
+						<div class="col-xs-12 col-md-4 col-lg-4">
+						<li>
+							<a href="" class="negro">
+								<i class="fa fa-whatsapp" aria-hidden="true"><span class="baloo"> Whatsapp</span></i>
+							</a>
+						</li>
+						</div>
+					</ul>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="marca">
+			<i class="fa fa-registered" aria-hidden="true"></i><span class="lobster">2016 Risueños</span>
+		</div>
+	</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="{% static 'js/main.js'  %}"></script>
+</body>
+</html>
